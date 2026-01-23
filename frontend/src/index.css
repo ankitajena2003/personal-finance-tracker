@@ -1,0 +1,41 @@
+@import "tailwindcss";
+
+@keyframes scaleIn {
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
+.animate-scaleIn {
+  animation: scaleIn 0.5s ease-out;
+}
+
+.input-dark {
+  @apply bg-slate-900 text-white px-4 py-3 rounded-xl
+         border border-slate-700
+         focus:outline-none focus:ring-2 focus:ring-green-500
+         transition;
+}
+
+
+/* ===== DATE INPUT CALENDAR ICON (WHITE) ===== */
+input[type="date"]::-webkit-calendar-picker-indicator {
+  filter: invert(1);
+  opacity: 0.9;
+  cursor: pointer;
+}
+
+/* Hover glow effect */
+input[type="date"]::-webkit-calendar-picker-indicator:hover {
+  filter: invert(1) drop-shadow(0 0 6px rgba(168, 85, 247, 0.8));
+}
+
+/* Focus glow when input is active */
+input[type="date"]:focus::-webkit-calendar-picker-indicator {
+  filter: invert(1) drop-shadow(0 0 10px rgba(34, 211, 238, 0.9));
+}
