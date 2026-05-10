@@ -6,6 +6,7 @@ import Expenses from "./pages/Expenses";
 import Income from "./pages/Income";
 import Budgets from "./pages/Budgets";
 import Account from "./pages/Account";
+import Search from "./pages/Search";
 import ProtectedRoute from "./components/ProtectedRoute";
 
 
@@ -59,6 +60,15 @@ function App() {
         element={
           <ProtectedRoute>
             <Account />
+          </ProtectedRoute>
+        }
+      />
+
+      <Route
+        path="/search"
+        element={
+          <ProtectedRoute>
+            <Search />
           </ProtectedRoute>
         }
       />

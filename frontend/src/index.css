@@ -1,4 +1,9 @@
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
+
+:root {
+  font-family: 'Outfit', system-ui, -apple-system, sans-serif;
+}
 
 @keyframes scaleIn {
   0% {
@@ -15,13 +20,23 @@
   animation: scaleIn 0.5s ease-out;
 }
 
-.input-dark {
-  @apply bg-slate-900 text-white px-4 py-3 rounded-xl
-         border border-slate-700
-         focus:outline-none focus:ring-2 focus:ring-green-500
-         transition;
+.glass-card {
+  @apply bg-white/70 backdrop-blur-xl border border-white/20 shadow-[0_8px_32px_0_rgba(31,38,135,0.07)];
 }
 
+.input-modern {
+  @apply w-full px-11 py-3 rounded-2xl border border-gray-200 
+         bg-gray-50/50 transition-all duration-300
+         focus:outline-none focus:ring-2 focus:ring-purple-500/20 focus:border-purple-500
+         placeholder:text-gray-400;
+}
+
+.btn-primary {
+  @apply w-full py-3.5 rounded-2xl bg-gradient-to-r from-purple-600 to-indigo-600 
+         text-white font-semibold shadow-lg shadow-purple-500/30
+         hover:shadow-purple-500/40 hover:-translate-y-0.5 active:scale-95
+         transition-all duration-200;
+}
 
 /* ===== DATE INPUT CALENDAR ICON (WHITE) ===== */
 input[type="date"]::-webkit-calendar-picker-indicator {
@@ -35,7 +50,23 @@ input[type="date"]::-webkit-calendar-picker-indicator:hover {
   filter: invert(1) drop-shadow(0 0 6px rgba(168, 85, 247, 0.8));
 }
 
-/* Focus glow when input is active */
-input[type="date"]:focus::-webkit-calendar-picker-indicator {
-  filter: invert(1) drop-shadow(0 0 10px rgba(34, 211, 238, 0.9));
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-50;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gray-300 rounded-full hover:bg-gray-400 transition-colors;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  @apply text-gray-900 bg-gray-50 antialiased;
 }

@@ -13,7 +13,21 @@ const app = express();
 
 // ---------- Middleware ----------
 app.use(cors());
-app.use(express.json());
+// parse JSON bodies and capture raw body for debugging
+app.use(
+  express.json({
+    verify: (req, res, buf) => {
+      try {
+        req.rawBody = buf.toString();
+      } catch (e) {
+        req.rawBody = "";
+      }
+    },
+  })
+);
+
+// parse urlencoded bodies (for form submissions or non-JSON clients)
+app.use(express.urlencoded({ extended: true }));
 
 // ---------- Root Test ----------
 app.get("/", (req, res) => {

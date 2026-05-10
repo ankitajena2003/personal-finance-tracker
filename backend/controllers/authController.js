@@ -4,11 +4,32 @@ const jwt = require("jsonwebtoken");
 
 // ================= REGISTER =================
 exports.register = (req, res) => {
-  const { name, email, password } = req.body;
+  // log incoming headers, raw body and parsed body for easier debugging
+  console.log("[authController] register headers:", req.headers);
+  console.log("[authController] register rawBody:", req.rawBody);
+  console.log("[authController] register body:", req.body);
 
-  // 1. Validate input
-  if (!name || !email || !password) {
-    return res.status(400).json({ message: "All fields are required" });
+  const { name, email, password } = req.body || {};
+
+  // 1. Validate input (trim strings)
+  const nameTrim = typeof name === "string" ? name.trim() : "";
+  const emailTrim = typeof email === "string" ? email.trim() : "";
+
+  if (!nameTrim || !emailTrim || !password) {
+    const missing = [];
+    if (!nameTrim) missing.push("name");
+    if (!emailTrim) missing.push("email");
+    if (!password) missing.push("password");
+
+    console.warn(
+      `[authController] validation failed - missing: ${missing.join(", ")}`
+    );
+
+    return res.status(400).json({
+      message: "All fields are required",
+      missing,
+      received: Object.keys(req.body || {}),
+    });
   }
 
   // 2. Check if user already exists
@@ -31,9 +52,10 @@ exports.register = (req, res) => {
 
     db.query(
       insertUserQuery,
-      [name, email, hashedPassword],
+      [nameTrim, emailTrim, hashedPassword],
       (err, result) => {
         if (err) {
+          console.error("[authController] insert error:", err);
           return res.status(500).json({ message: "User registration failed" });
         }
 
