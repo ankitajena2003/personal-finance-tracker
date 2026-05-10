@@ -12,7 +12,10 @@ const budgetRoutes = require("./routes/budgetRoutes");
 const app = express();
 
 // ---------- Middleware ----------
-app.use(cors());
+app.use(cors({
+  origin: ["https://personal-finance-tracker-sigma-sable.vercel.app", "http://localhost:5173", "http://localhost:3000"],
+  credentials: true
+}));
 // parse JSON bodies and capture raw body for debugging
 app.use(
   express.json({
